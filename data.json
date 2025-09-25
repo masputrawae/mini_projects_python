@@ -43,5 +43,32 @@
         "create_date": "2025-09-25T19:43:07.214365",
         "due_date": "2025-10-01",
         "is_done": false
+    },
+    {
+        "id": "c62c5ee9-e048-4b0d-8950-167b1db8f78e",
+        "short_id": "c62c5ee9",
+        "title": "Ini Adalah Pembaruan Due Date",
+        "content": "Agar Konsisten format tanggal due date dan create_date",
+        "create_date": "2025-09-25T20:25:04.278291",
+        "due_date": "2025-01-02",
+        "is_done": false
+    },
+    {
+        "id": "e2dbe63c-fa36-4e5e-b3c3-2f7e2ea1eb93",
+        "short_id": "e2dbe63c",
+        "title": "Sip Jalan Lancar",
+        "content": "",
+        "create_date": "2025-09-25T20:25:29.466125",
+        "due_date": "2022-10-20",
+        "is_done": false
+    },
+    {
+        "id": "5aa12fc5-fb2f-4f6a-95b9-6ee356ed8196",
+        "short_id": "5aa12fc5",
+        "title": "Ini Testing Format Tanggal Baru",
+        "content": "biar konsisten pakai YYYY-MM-DD aja",
+        "create_date": "2025-09-25",
+        "due_date": "2024-10-20",
+        "is_done": false
     }
 ]

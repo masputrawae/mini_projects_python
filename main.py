@@ -5,11 +5,12 @@ import os
 import uuid
 
 FILE_NAME = "data.json"
+HR_STR = "\n" + "=" * 40 + "\n"
 
 # ===== VALIDATION DATE ===== #
 def valid_date(input_date):
     try:
-        date_obj = dt.strptime(input_date, "%Y-%m-%d")
+        val = dt.strptime(input_date, "%Y-%m-%d")
         return True
     except ValueError:
         return False
@@ -37,8 +38,7 @@ def save_data(file_name, content):
 def add_todo(title, content, due_date):
     idstr = str(uuid.uuid4())
     short_id = idstr[0:8]
-    date = dt.now().isoformat()
-
+    date = dt.now().strftime("%Y-%m-%d")
     struc = {
                 "id": idstr, 
                 "short_id": short_id,
@@ -59,7 +59,7 @@ def create():
 
     while True:
         input_due_date = input("Due Date (YYYY-MM-DD) >>> ")
-        if valid_date(input_due_date):
+        if valid_date(input_due_date): 
             break
         else:
             print("Invalid Format, Correct Format (YYYY-MM-DD)")
@@ -69,14 +69,7 @@ def create():
 
     save_data(FILE_NAME, data_struc)
 
-# ===== SHOW LIST ===== #
-def show_list():
-    data = get_data(FILE_NAME)
-    hr = "\n" + "=" * 40 + "\n"
-    sparator = hr
-    sparator += "ALL TODO".center(40)
-    sparator += hr
-    print(sparator)
+def list_handler(data):
     if data:
         for i, v in enumerate(data, start=1):
             print(f'''
@@ -87,9 +80,40 @@ Description     :{v["content"]}
 Created         :{v["create_date"]}
 Due Date        :{v["due_date"]}
 Is Done?        :{v["is_done"]}''')
-            print(hr)
+            print(HR_STR)
     else:
         print("No Tasks")
+
+# ===== SHOW LIST ===== #
+def show_list():
+    try:
+        user_option = int(input(f'''
+[1]. Show All
+[2]. Show Unfinished
+[3]. Show Is Done
+>>> '''))
+        data = get_data(FILE_NAME)
+        unfinished = [todo for todo in data if not todo["is_done"]]
+        done = [todo for todo in data if todo["is_done"]]
+
+        sparator = HR_STR
+        sparator += "TODO LIST".center(40)
+        sparator += HR_STR
+
+        print(sparator)
+
+        if user_option == 1:
+            list_handler(data)
+        elif user_option == 2:
+            list_handler(unfinished)
+        elif user_option == 3:
+            list_handler(done)
+        else:
+            print("Only Accept Numbers From 1 - 3")
+        
+        print(HR_STR)
+    except ValueError:
+        print("Only Accept Numbers From 1 - 3")
 
 # ===== USER OPTION ===== #
 def user_option():
@@ -97,10 +121,10 @@ def user_option():
     while True:
         menus = f'''
 [1]. Create
-[2]. Read
-[3]. Update
+[2]. Update
+[3]. Mark Is Done
 [4]. Delete
-[5]. Show List
+[5]. Show Todos
 [6]. Exit
 ==========
 >>>> '''
