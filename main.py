@@ -4,7 +4,7 @@ import json
 import os
 import uuid
 
-FILE_NAME = "data.json"
+FILE_NAME = "data/data.json"
 HR_STR = "\n" + "=" * 40 + "\n"
 
 # ===== VALIDATION DATE ===== #
@@ -69,6 +69,7 @@ def create():
 
     save_data(FILE_NAME, data_struc)
 
+# ===== LIST HANDLER ===== #
 def list_handler(data):
     if data:
         for i, v in enumerate(data, start=1):
