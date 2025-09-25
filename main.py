@@ -1,20 +1,51 @@
+from datetime import datetime as dt
+
 import json
+import os
+import uuid
 
 data = []
 
-# ===== CREATE JSON FUNCTION ===== #
-def create():
-    try:
-        with open("data.json", "r") as f:
-            data = json.load(f)
-    except Exception as e:
-        print(f"Error: {e}")
-        return
+# ===== CREATE ADD TODO_LIST ===== #
+def add_todo(title, content, due_date):
+    idstr = str(uuid.uuid4())
+    date = dt.now().isoformat()
 
-    if not data:
-        print("data kosong")
-    else:
-        print(data)
+    struc = {
+                "id": idstr, 
+                "title": title, 
+                "content": content, 
+                "create_date": date,
+                "due_date": due_date,
+                "is_done": False 
+            }
+    return struc
+
+# ===== CREATE FUNCTION ===== #
+def create():
+    data_struc = []
+
+    input_title = input("Title >>> ").title()
+    input_content = input("Description >>> ")
+    input_due_date = input("Due Date (YYYY-MM-DD) >>> ")
+
+    new_todo = add_todo(input_title, input_content, input_due_date)
+
+    if os.path.exists("data.json"):
+        try:
+            with open("data.json", "r") as f:
+                data_struc = json.load(f)
+        except Exception as e:
+            print(f"Error {e}")
+
+    data_struc.append(new_todo)
+    try:
+        with open("data.json", "w") as f:
+            json.dump(data_struc, f, indent=4)
+
+    except Exception as e:
+        print(f"Error {e}")
+        return
 
 # ===== USER OPTION ===== #
 def user_option():
