@@ -8,8 +8,7 @@ def main():
     #! Cek kalau user tekan (CTRL + C) agar tidak ada error
     try:
 
-        #! Looping dari 1 - 6, atau 5x, Bisa juga 0 - 5, itu 5x juga
-        #! Tapi biar mudah di hitung pakai 1 - 6
+        #! Looping 5x
         for count in range(1, 6):
 
             #! Cek apakah user memasukkan input selain angka
